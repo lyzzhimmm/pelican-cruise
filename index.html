@@ -612,17 +612,16 @@
 
       <!-- ================= SCENE 1: 落日海边 (SUNSET BEACH) ================= -->
       <g id="scene-beach" class="scene-group" style="transition: opacity 0.8s ease;">
-        <!-- 天空背景 -->
-        <rect x="0" y="0" width="1440" height="820" fill="url(#sunset-sky-grad)" />
+        <!-- 天空背景 (超宽全屏覆盖) -->
+        <rect x="-3000" y="-400" width="8000" height="1400" fill="url(#sunset-sky-grad)" />
 
         <!-- 巨大落日与光晕 -->
         <circle cx="980" cy="410" r="180" fill="url(#sun-glow)" opacity="0.65" />
         <circle cx="980" cy="410" r="70" fill="#fff7ed" opacity="0.95" />
 
-        <!-- 远景海面与波光倒影 -->
-        <rect x="0" y="440" width="1440" height="200" fill="url(#sunset-sea-grad)" />
+        <!-- 远景海面与波光倒影 (超宽覆盖) -->
+        <rect x="-3000" y="440" width="8000" height="200" fill="url(#sunset-sea-grad)" />
         <g id="beach-water-reflections" opacity="0.5">
-          <!-- 动态落日波光柱将在JS中驱动微波 -->
           <ellipse cx="980" cy="455" rx="140" ry="4" fill="#ffedd5" />
           <ellipse cx="980" cy="470" rx="190" ry="5" fill="#fed7aa" />
           <ellipse cx="980" cy="490" rx="230" ry="6" fill="#fde047" />
@@ -630,34 +629,10 @@
         </g>
 
         <!-- 视差层 1: 远景海平线（灯塔、帆船、远山微影） -->
-        <g id="beach-layer-far" class="parallax-layer">
-          <!-- 远山轮廓 -->
-          <path d="M0,440 Q200,410 420,440 Q700,420 900,440 L900,450 L0,450 Z" fill="#701a75" opacity="0.4" />
-          <path d="M720,440 Q1000,395 1280,440 Q1380,430 1440,440 L1440,450 L720,450 Z" fill="#701a75" opacity="0.4" />
-          <!-- 远方白色小帆船 -->
-          <g transform="translate(680, 418) scale(0.6)">
-            <polygon points="10,0 28,26 10,26" fill="#f8fafc" opacity="0.9" />
-            <polygon points="6,6 6,26 -8,26" fill="#fed7aa" opacity="0.8" />
-            <path d="M-12,27 L32,27 L26,34 L-6,34 Z" fill="#431407" />
-          </g>
-          <!-- 远方灯塔 -->
-          <g transform="translate(260, 375) scale(0.75)" opacity="0.7">
-            <polygon points="12,0 18,0 24,70 6,70" fill="#f8fafc" />
-            <polygon points="12,0 18,0 20,20 10,20" fill="#dc2626" />
-            <polygon points="9,35 21,35 23,55 7,55" fill="#dc2626" />
-            <rect x="8" y="-8" width="14" height="8" fill="#1e293b" />
-            <circle cx="15" cy="-4" r="3" fill="#fef08a" />
-            <!-- 灯塔光芒扇区 -->
-            <polygon points="15,-4 320,-80 340,60" fill="#fef08a" opacity="0.18" />
-          </g>
-        </g>
+        <g id="beach-layer-far" class="parallax-layer"></g>
 
         <!-- 视差层 2: 中景海岸棕榈树与沙丘 -->
-        <g id="beach-layer-mid" class="parallax-layer">
-          <!-- 延展至 2880 宽度的连续沙丘曲线 -->
-          <path d="M0,520 Q360,490 720,530 T1440,520 T2160,530 T2880,520 L2880,660 L0,660 Z" fill="#c2410c" opacity="0.85" />
-          <path d="M0,545 Q400,525 800,555 T1600,545 T2400,555 T2880,545 L2880,660 L0,660 Z" fill="#9a3412" />
-        </g>
+        <g id="beach-layer-mid" class="parallax-layer"></g>
 
         <!-- 海鸥群 -->
         <g id="beach-seagulls" opacity="0.85">
@@ -666,21 +641,21 @@
           <path d="M260,180 Q272,166 284,180 Q296,166 308,180 Q296,173 284,183 Q272,173 260,180 Z" fill="#fff" transform="scale(0.7) translate(120, 40)" />
         </g>
 
-        <!-- 视差层 3: 近景海边木栈道与护栏 -->
-        <g id="beach-layer-road">
-          <!-- 木栈道路面基底 -->
-          <rect x="0" y="600" width="1440" height="220" fill="#78350f" />
-          <!-- 栈道木板拼缝 -->
+        <!-- 静态永固木栈道基底 (永不位移、永无延迟或黑洞) -->
+        <rect x="-3000" y="600" width="8000" height="260" fill="#78350f" />
+        <rect x="-3000" y="585" width="8000" height="15" fill="#451a03" />
+
+        <!-- 视差层 3: 近景海边木栈道接缝与护栏 (纯动态纹理) -->
+        <g id="beach-layer-road" class="parallax-layer">
           <g id="boardwalk-planks" stroke="#451a03" stroke-width="4"></g>
-          <!-- 栈道木栏杆 -->
           <g id="boardwalk-fence"></g>
         </g>
       </g>
 
       <!-- ================= SCENE 2: 恬静田野 (RURAL MEADOW) ================= -->
       <g id="scene-field" class="scene-group" style="display: none; opacity: 0; transition: opacity 0.8s ease;">
-        <!-- 天空 -->
-        <rect x="0" y="0" width="1440" height="820" fill="url(#field-sky-grad)" />
+        <!-- 天空背景 (超宽全屏覆盖) -->
+        <rect x="-3000" y="-400" width="8000" height="1400" fill="url(#field-sky-grad)" />
 
         <!-- 温暖晨光太阳 -->
         <circle cx="1180" cy="180" r="60" fill="#fef08a" opacity="0.9" />
@@ -693,24 +668,17 @@
         </g>
 
         <!-- 视差层 1: 远景连绵青色丘陵 -->
-        <g id="field-layer-far" class="parallax-layer">
-          <path d="M0,450 Q320,380 680,440 T1440,420 L1440,560 L0,560 Z" fill="#6ee7b7" opacity="0.4" />
-          <path d="M0,480 Q400,420 840,470 T1680,450 L1680,560 L0,560 Z" fill="#34d399" opacity="0.5" />
-        </g>
+        <g id="field-layer-far" class="parallax-layer"></g>
 
         <!-- 视差层 2: 中景风车、谷仓与小树林 -->
-        <g id="field-layer-mid" class="parallax-layer">
-          <path d="M0,510 Q350,470 700,520 T1440,500 L1440,640 L0,640 Z" fill="#16a34a" />
-          <path d="M0,540 Q420,510 850,550 T1700,530 L1700,640 L0,640 Z" fill="#15803d" />
-        </g>
+        <g id="field-layer-mid" class="parallax-layer"></g>
 
-        <!-- 视差层 3: 近景乡村泥土碎石路与向日葵花丛 -->
-        <g id="field-layer-road">
-          <!-- 乡间小路 -->
-          <rect x="0" y="600" width="1440" height="220" fill="#a16207" />
-          <!-- 绿草路肩 -->
-          <rect x="0" y="590" width="1440" height="20" fill="#4d7c0f" />
-          <!-- 乡间木篱笆与向日葵群 -->
+        <!-- 静态永固乡间小路与绿草路肩 (永不位移、永无延迟或空洞) -->
+        <rect x="-3000" y="600" width="8000" height="260" fill="#a16207" />
+        <rect x="-3000" y="588" width="8000" height="15" fill="#4d7c0f" />
+
+        <!-- 视差层 3: 近景乡村木篱笆与向日葵花丛 (纯动态纹理) -->
+        <g id="field-layer-road" class="parallax-layer">
           <g id="field-fence"></g>
           <g id="field-flowers"></g>
         </g>
@@ -718,29 +686,27 @@
 
       <!-- ================= SCENE 3: 城市霓虹街景 (CYBER/TWILIGHT CITY) ================= -->
       <g id="scene-city" class="scene-group" style="display: none; opacity: 0; transition: opacity 0.8s ease;">
-        <!-- 城市黄昏/夜景渐变 -->
-        <rect x="0" y="0" width="1440" height="820" fill="url(#city-sky-grad)" />
+        <!-- 城市黄昏/夜景渐变 (超宽全屏覆盖) -->
+        <rect x="-3000" y="-400" width="8000" height="1400" fill="url(#city-sky-grad)" />
 
         <!-- 霓虹月牙与梦幻星光 -->
         <circle cx="1200" cy="160" r="45" fill="#fef08a" opacity="0.9" />
         <circle cx="1215" cy="150" r="42" fill="#1e1b4b" />
 
-        <!-- 视差层 1: 远景摩天大楼天际线 (深紫深蓝剪影 + 微光窗格) -->
+        <!-- 视差层 1: 远景摩天大楼天际线 -->
         <g id="city-layer-far" class="parallax-layer"></g>
 
         <!-- 视差层 2: 中景繁华街区建筑、招牌、树木 -->
         <g id="city-layer-mid" class="parallax-layer"></g>
 
-        <!-- 视差层 3: 现代柏油路面、斑马线与路灯 -->
-        <g id="city-layer-road">
-          <!-- 柏油路基 -->
-          <rect x="0" y="600" width="1440" height="220" fill="#0f172a" />
-          <!-- 人行道边缘道牙石 -->
-          <rect x="0" y="585" width="1440" height="22" fill="#334155" />
-          <line x1="0" y1="586" x2="1440" y2="586" stroke="#64748b" stroke-width="2" />
-          <!-- 动态沥青路标黄/白虚线 -->
+        <!-- 静态永固柏油路基与人行道路缘 (永不位移、彻底消除延迟黑洞) -->
+        <rect x="-3000" y="600" width="8000" height="260" fill="#0f172a" />
+        <rect x="-3000" y="585" width="8000" height="18" fill="#334155" />
+        <line x1="-3000" y1="586" x2="5000" y2="586" stroke="#64748b" stroke-width="2" />
+
+        <!-- 视差层 3: 现代柏油路面动态标线与路灯 (纯动态层) -->
+        <g id="city-layer-road" class="parallax-layer">
           <g id="city-road-stripes"></g>
-          <!-- 路灯光锥投射在地面 -->
           <g id="city-street-lights"></g>
         </g>
       </g>
@@ -1487,22 +1453,78 @@
     class ParallaxWorld {
       constructor() {
         this.layers = [];
+        this.CYCLE_W = 2400; // 标准视差循环跨度 (足够容纳超宽屏视口)
         this.initBeachElements();
         this.initFieldElements();
         this.initCityElements();
       }
 
-      // 初始化海边场景动态元素 (栏杆、木板、帆船等)
+      // 初始化海边场景动态元素 (栏杆、木板、帆船、椰林沙丘等)
       initBeachElements() {
-        // 生成木栈道拼缝
+        const farBeach = document.getElementById('beach-layer-far');
+        const midBeach = document.getElementById('beach-layer-mid');
         const planksContainer = document.getElementById('boardwalk-planks');
         const fenceContainer = document.getElementById('boardwalk-fence');
+
+        // 1. 远景海平线元素 (覆盖 -2400 到 4800)
+        let farBeachHTML = '';
+        for (let b = -this.CYCLE_W; b < this.CYCLE_W * 2; b += this.CYCLE_W) {
+          farBeachHTML += `
+            <path d="M${b},440 Q${b+200},410 ${b+420},440 Q${b+700},420 ${b+900},440 L${b+900},450 L${b},450 Z" fill="#701a75" opacity="0.4" />
+            <path d="M${b+720},440 Q${b+1000},395 ${b+1280},440 Q${b+1380},430 ${b+1440},440 L${b+1440},450 L${b+720},450 Z" fill="#701a75" opacity="0.4" />
+            <g transform="translate(${b+680}, 418) scale(0.6)">
+              <polygon points="10,0 28,26 10,26" fill="#f8fafc" opacity="0.9" />
+              <polygon points="6,6 6,26 -8,26" fill="#fed7aa" opacity="0.8" />
+              <path d="M-12,27 L32,27 L26,34 L-6,34 Z" fill="#431407" />
+            </g>
+            <g transform="translate(${b+260}, 375) scale(0.75)" opacity="0.7">
+              <polygon points="12,0 18,0 24,70 6,70" fill="#f8fafc" />
+              <polygon points="12,0 18,0 20,20 10,20" fill="#dc2626" />
+              <polygon points="9,35 21,35 23,55 7,55" fill="#dc2626" />
+              <rect x="8" y="-8" width="14" height="8" fill="#1e293b" />
+              <circle cx="15" cy="-4" r="3" fill="#fef08a" />
+              <polygon points="15,-4 320,-80 340,60" fill="#fef08a" opacity="0.18" />
+            </g>
+          `;
+        }
+        farBeach.innerHTML = farBeachHTML;
+
+        // 2. 中景沙丘曲线与剪影椰子树群
+        let midBeachHTML = `
+          <path d="M-2400,520 Q-2000,490 -1600,530 T-800,520 T0,530 T800,520 T1600,530 T2400,520 T3200,530 T4000,520 T4800,530 L4800,660 L-2400,660 Z" fill="#c2410c" opacity="0.85" />
+          <path d="M-2400,545 Q-1900,525 -1400,555 T-400,545 T600,555 T1600,545 T2600,555 T3600,545 T4800,555 L4800,660 L-2400,660 Z" fill="#9a3412" />
+        `;
+        const palmOffsets = [140, 480, 860, 1220, 1580, 1940];
+        for (let b = -this.CYCLE_W; b < this.CYCLE_W * 2; b += this.CYCLE_W) {
+          palmOffsets.forEach((po, idx) => {
+            const px = b + po;
+            const scale = 0.75 + (idx % 3) * 0.12;
+            const curve = (idx % 2 === 0 ? 28 : -22);
+            midBeachHTML += `
+              <g transform="translate(${px}, 360) scale(${scale})">
+                <path d="M0,170 Q${curve},90 ${curve * 0.8},0" fill="none" stroke="#7c2d12" stroke-width="12" stroke-linecap="round" />
+                <path d="M0,170 Q${curve},90 ${curve * 0.8},0" fill="none" stroke="#451a03" stroke-width="8" stroke-linecap="round" />
+                <circle cx="${curve * 0.8 - 5}" cy="3" r="5" fill="#451a03" />
+                <circle cx="${curve * 0.8 + 4}" cy="5" r="4.5" fill="#78350f" />
+                <g stroke="#9a3412" stroke-width="1.5" fill="#7c2d12" opacity="0.95">
+                  <path d="M${curve * 0.8},0 Q${curve * 0.8 - 60},-35 ${curve * 0.8 - 90},-8 Q${curve * 0.8 - 50},-15 ${curve * 0.8},0 Z" />
+                  <path d="M${curve * 0.8},0 Q${curve * 0.8 - 35},-55 ${curve * 0.8 - 55},-72 Q${curve * 0.8 - 25},-42 ${curve * 0.8},0 Z" />
+                  <path d="M${curve * 0.8},0 Q${curve * 0.8 + 10},-65 ${curve * 0.8 + 18},-82 Q${curve * 0.8 + 14},-42 ${curve * 0.8},0 Z" />
+                  <path d="M${curve * 0.8},0 Q${curve * 0.8 + 45},-55 ${curve * 0.8 + 70},-45 Q${curve * 0.8 + 38},-28 ${curve * 0.8},0 Z" />
+                  <path d="M${curve * 0.8},0 Q${curve * 0.8 + 65},-25 ${curve * 0.8 + 90},12 Q${curve * 0.8 + 46},-8 ${curve * 0.8},0 Z" />
+                  <path d="M${curve * 0.8},0 Q${curve * 0.8 - 18},-25 ${curve * 0.8 - 75},18 Q${curve * 0.8 - 38},4 ${curve * 0.8},0 Z" />
+                </g>
+              </g>
+            `;
+          });
+        }
+        midBeach.innerHTML = midBeachHTML;
+
+        // 3. 近景木栈道动态接缝与栏杆
         let plankHTML = '';
         let fenceHTML = '';
-
-        for (let x = 0; x < 2880; x += 40) {
+        for (let x = -this.CYCLE_W; x < this.CYCLE_W * 2; x += 40) {
           plankHTML += `<line x1="${x}" y1="600" x2="${x}" y2="820" />`;
-          // 栏杆柱子
           if (x % 120 === 0) {
             fenceHTML += `
               <rect x="${x}" y="530" width="12" height="70" fill="#92400e" stroke="#451a03" stroke-width="2" rx="2" />
@@ -1510,98 +1532,78 @@
             `;
           }
         }
-        // 栏杆两根横木
         fenceHTML += `
-          <line x1="0" y1="550" x2="2880" y2="550" stroke="#78350f" stroke-width="8" stroke-linecap="round" />
-          <line x1="0" y1="575" x2="2880" y2="575" stroke="#78350f" stroke-width="8" stroke-linecap="round" />
+          <line x1="-2400" y1="550" x2="4800" y2="550" stroke="#78350f" stroke-width="8" stroke-linecap="round" />
+          <line x1="-2400" y1="575" x2="4800" y2="575" stroke="#78350f" stroke-width="8" stroke-linecap="round" />
         `;
-
         planksContainer.innerHTML = plankHTML;
         fenceContainer.innerHTML = fenceHTML;
 
-        // 在中景沙丘上生成婀娜多姿的落日剪影椰子树群
-        const midBeach = document.getElementById('beach-layer-mid');
-        let palmHTML = midBeach.innerHTML;
-        const palmPositions = [140, 480, 860, 1220, 1580, 1940, 2300, 2680];
-        palmPositions.forEach((px, idx) => {
-          const scale = 0.75 + (idx % 3) * 0.12;
-          const curve = (idx % 2 === 0 ? 28 : -22);
-          palmHTML += `
-            <g transform="translate(${px}, 360) scale(${scale})">
-              <!-- 弯曲椰树干 -->
-              <path d="M0,170 Q${curve},90 ${curve * 0.8},0" fill="none" stroke="#7c2d12" stroke-width="12" stroke-linecap="round" />
-              <path d="M0,170 Q${curve},90 ${curve * 0.8},0" fill="none" stroke="#451a03" stroke-width="8" stroke-linecap="round" />
-              <!-- 椰果 -->
-              <circle cx="${curve * 0.8 - 5}" cy="3" r="5" fill="#451a03" />
-              <circle cx="${curve * 0.8 + 4}" cy="5" r="4.5" fill="#78350f" />
-              <!-- 棕榈羽状大叶片 -->
-              <g stroke="#9a3412" stroke-width="1.5" fill="#7c2d12" opacity="0.95">
-                <path d="M${curve * 0.8},0 Q${curve * 0.8 - 60},-35 ${curve * 0.8 - 90},-8 Q${curve * 0.8 - 50},-15 ${curve * 0.8},0 Z" />
-                <path d="M${curve * 0.8},0 Q${curve * 0.8 - 35},-55 ${curve * 0.8 - 55},-72 Q${curve * 0.8 - 25},-42 ${curve * 0.8},0 Z" />
-                <path d="M${curve * 0.8},0 Q${curve * 0.8 + 10},-65 ${curve * 0.8 + 18},-82 Q${curve * 0.8 + 14},-42 ${curve * 0.8},0 Z" />
-                <path d="M${curve * 0.8},0 Q${curve * 0.8 + 45},-55 ${curve * 0.8 + 70},-45 Q${curve * 0.8 + 38},-28 ${curve * 0.8},0 Z" />
-                <path d="M${curve * 0.8},0 Q${curve * 0.8 + 65},-25 ${curve * 0.8 + 90},12 Q${curve * 0.8 + 46},-8 ${curve * 0.8},0 Z" />
-                <path d="M${curve * 0.8},0 Q${curve * 0.8 - 18},-25 ${curve * 0.8 - 75},18 Q${curve * 0.8 - 38},4 ${curve * 0.8},0 Z" />
-              </g>
-            </g>
-          `;
-        });
-        midBeach.innerHTML = palmHTML;
-
-        // 注册到视差滚动层 (沙丘中景使用 2880 宽)
         this.layers.push(
-          { id: 'beach-layer-far', scene: 'beach', speedFactor: 0.12, x: 0, width: 1440 },
-          { id: 'beach-layer-mid', scene: 'beach', speedFactor: 0.35, x: 0, width: 2880 },
-          { id: 'beach-layer-road', scene: 'beach', speedFactor: 1.0, x: 0, width: 1440 }
+          { id: 'beach-layer-far', scene: 'beach', speedFactor: 0.12, x: 0, width: this.CYCLE_W },
+          { id: 'beach-layer-mid', scene: 'beach', speedFactor: 0.35, x: 0, width: this.CYCLE_W },
+          { id: 'beach-layer-road', scene: 'beach', speedFactor: 1.0, x: 0, width: this.CYCLE_W }
         );
       }
 
       // 初始化田野场景动态元素 (风车、谷仓、木篱笆、向日葵花海)
       initFieldElements() {
+        const farField = document.getElementById('field-layer-far');
         const midLayer = document.getElementById('field-layer-mid');
         const fenceContainer = document.getElementById('field-fence');
         const flowerContainer = document.getElementById('field-flowers');
 
-        // 在中景添加两座复古大风车与谷仓
-        let midContent = midLayer.innerHTML;
-        midContent += `
-          <g id="windmill-1" transform="translate(480, 360)">
-            <polygon points="15,0 35,0 45,150 5,150" fill="#fef3c7" stroke="#b45309" stroke-width="2" />
-            <polygon points="12,0 38,0 25,-18" fill="#b91c1c" />
-            <!-- 风车转子轴心与4片旋转叶片 -->
-            <g id="windmill-blades-1" transform="translate(25, 0)">
-              <circle cx="0" cy="0" r="6" fill="#78350f" />
-              <g stroke="#92400e" stroke-width="3">
-                <line x1="0" y1="0" x2="0" y2="-65" />
-                <line x1="0" y1="0" x2="65" y2="0" />
-                <line x1="0" y1="0" x2="0" y2="65" />
-                <line x1="0" y1="0" x2="-65" y2="0" />
-              </g>
-              <rect x="3" y="-62" width="14" height="45" fill="#fef9c3" opacity="0.85" stroke="#ca8a04" stroke-width="1" />
-              <rect x="17" y="3" width="45" height="14" fill="#fef9c3" opacity="0.85" stroke="#ca8a04" stroke-width="1" />
-              <rect x="-17" y="17" width="14" height="45" fill="#fef9c3" opacity="0.85" stroke="#ca8a04" stroke-width="1" />
-              <rect x="-62" y="-17" width="45" height="14" fill="#fef9c3" opacity="0.85" stroke="#ca8a04" stroke-width="1" />
-            </g>
-          </g>
-          <g id="windmill-2" transform="translate(1220, 385) scale(0.75)">
-            <polygon points="15,0 35,0 45,150 5,150" fill="#fed7aa" stroke="#c2410c" stroke-width="2" />
-            <g id="windmill-blades-2" transform="translate(25, 0)">
-              <circle cx="0" cy="0" r="5" fill="#78350f" />
-              <g stroke="#78350f" stroke-width="2.5">
-                <line x1="0" y1="0" x2="0" y2="-55" />
-                <line x1="0" y1="0" x2="55" y2="0" />
-                <line x1="0" y1="0" x2="0" y2="55" />
-                <line x1="0" y1="0" x2="-55" y2="0" />
-              </g>
-            </g>
-          </g>
+        // 1. 远景连绵群山
+        let farFieldHTML = `
+          <path d="M-2400,450 Q-2000,380 -1600,440 T-800,420 T0,440 T800,420 T1600,440 T2400,420 T3200,440 T4000,420 T4800,440 L4800,560 L-2400,560 Z" fill="#6ee7b7" opacity="0.4" />
+          <path d="M-2400,480 Q-1950,420 -1500,470 T-600,450 T300,470 T1200,450 T2100,470 T3000,450 T3900,470 T4800,450 L4800,560 L-2400,560 Z" fill="#34d399" opacity="0.5" />
         `;
+        farField.innerHTML = farFieldHTML;
+
+        // 2. 中景山丘与旋转风车
+        let midContent = `
+          <path d="M-2400,510 Q-2000,470 -1600,520 T-800,500 T0,520 T800,500 T1600,520 T2400,500 T3200,520 T4000,500 T4800,520 L4800,640 L-2400,640 Z" fill="#16a34a" />
+          <path d="M-2400,540 Q-1900,510 -1400,550 T-400,530 T600,550 T1600,530 T2600,550 T3600,530 T4800,550 L4800,640 L-2400,640 Z" fill="#15803d" />
+        `;
+        for (let b = -this.CYCLE_W; b < this.CYCLE_W * 2; b += this.CYCLE_W) {
+          midContent += `
+            <g transform="translate(${b + 480}, 360)">
+              <polygon points="15,0 35,0 45,150 5,150" fill="#fef3c7" stroke="#b45309" stroke-width="2" />
+              <polygon points="12,0 38,0 25,-18" fill="#b91c1c" />
+              <g class="windmill-blades-group" transform="translate(25, 0)">
+                <circle cx="0" cy="0" r="6" fill="#78350f" />
+                <g stroke="#92400e" stroke-width="3">
+                  <line x1="0" y1="0" x2="0" y2="-65" />
+                  <line x1="0" y1="0" x2="65" y2="0" />
+                  <line x1="0" y1="0" x2="0" y2="65" />
+                  <line x1="0" y1="0" x2="-65" y2="0" />
+                </g>
+                <rect x="3" y="-62" width="14" height="45" fill="#fef9c3" opacity="0.85" stroke="#ca8a04" stroke-width="1" />
+                <rect x="17" y="3" width="45" height="14" fill="#fef9c3" opacity="0.85" stroke="#ca8a04" stroke-width="1" />
+                <rect x="-17" y="17" width="14" height="45" fill="#fef9c3" opacity="0.85" stroke="#ca8a04" stroke-width="1" />
+                <rect x="-62" y="-17" width="45" height="14" fill="#fef9c3" opacity="0.85" stroke="#ca8a04" stroke-width="1" />
+              </g>
+            </g>
+            <g transform="translate(${b + 1420}, 385) scale(0.75)">
+              <polygon points="15,0 35,0 45,150 5,150" fill="#fed7aa" stroke="#c2410c" stroke-width="2" />
+              <g class="windmill-blades-group" transform="translate(25, 0)">
+                <circle cx="0" cy="0" r="5" fill="#78350f" />
+                <g stroke="#78350f" stroke-width="2.5">
+                  <line x1="0" y1="0" x2="0" y2="-55" />
+                  <line x1="0" y1="0" x2="55" y2="0" />
+                  <line x1="0" y1="0" x2="0" y2="55" />
+                  <line x1="0" y1="0" x2="-55" y2="0" />
+                </g>
+              </g>
+            </g>
+          `;
+        }
         midLayer.innerHTML = midContent;
 
-        // 生成近景木篱笆与向日葵花簇
+        // 3. 近景木篱笆与向日葵花田
         let fenceHTML = '';
         let flowerHTML = '';
-        for (let x = 0; x < 2880; x += 90) {
+        for (let x = -this.CYCLE_W; x < this.CYCLE_W * 2; x += 90) {
           fenceHTML += `
             <polygon points="${x},545 ${x+12},540 ${x+14},600 ${x-2},600" fill="#a16207" stroke="#713f12" stroke-width="1.5" />
           `;
@@ -1611,12 +1613,10 @@
               <line x1="${x-20}" y1="580" x2="${x+160}" y2="580" stroke="#854d0e" stroke-width="6" stroke-linecap="round" />
             `;
           }
-          // 向日葵
           const flowerX = x + Math.sin(x) * 25;
           flowerHTML += `
             <g transform="translate(${flowerX}, 570) scale(0.65)">
               <path d="M0,35 Q-5,15 0,0" stroke="#15803d" stroke-width="4" fill="none" />
-              <!-- 花瓣 (放射圆环) -->
               <circle cx="0" cy="0" r="14" fill="#facc15" />
               <circle cx="0" cy="0" r="8" fill="#713f12" />
             </g>
@@ -1626,9 +1626,9 @@
         flowerContainer.innerHTML = flowerHTML;
 
         this.layers.push(
-          { id: 'field-layer-far', scene: 'field', speedFactor: 0.1, x: 0, width: 1440 },
-          { id: 'field-layer-mid', scene: 'field', speedFactor: 0.32, x: 0, width: 1440 },
-          { id: 'field-layer-road', scene: 'field', speedFactor: 1.0, x: 0, width: 1440 }
+          { id: 'field-layer-far', scene: 'field', speedFactor: 0.1, x: 0, width: this.CYCLE_W },
+          { id: 'field-layer-mid', scene: 'field', speedFactor: 0.32, x: 0, width: this.CYCLE_W },
+          { id: 'field-layer-road', scene: 'field', speedFactor: 1.0, x: 0, width: this.CYCLE_W }
         );
       }
 
@@ -1639,76 +1639,71 @@
         const stripesContainer = document.getElementById('city-road-stripes');
         const lightsContainer = document.getElementById('city-street-lights');
 
-        // 远景大厦剪影
+        // 1. 远景大厦剪影 (横跨 -2400 到 4800)
         let farHTML = '';
-        const bldgWidths = [120, 160, 90, 140, 180, 110, 150, 130, 170, 100, 150];
-        let curX = 0;
-        for (let i = 0; i < 22; i++) {
-          const w = bldgWidths[i % bldgWidths.length];
-          const h = 280 + (i % 5) * 50;
-          const y = 580 - h;
-          farHTML += `
-            <g transform="translate(${curX}, ${y})">
-              <rect x="0" y="0" width="${w}" height="${h}" fill="#111827" stroke="#1f2937" stroke-width="1.5" />
-              <!-- 天际线天线与红闪警告灯 -->
-              <line x1="${w/2}" y1="0" x2="${w/2}" y2="-30" stroke="#475569" stroke-width="2" />
-              <circle cx="${w/2}" cy="-30" r="3" fill="#ef4444" opacity="0.9" />
-          `;
-          // 窗户矩阵
-          for (let wy = 30; wy < h - 20; wy += 28) {
-            for (let wx = 15; wx < w - 15; wx += 24) {
-              if ((i + wx + wy) % 3 !== 0) {
-                const winColor = (wx + wy) % 2 === 0 ? '#fef08a' : '#38bdf8';
-                const winOp = ((wx * wy) % 10 > 3) ? 0.75 : 0.2;
-                farHTML += `<rect x="${wx}" y="${wy}" width="12" height="16" rx="2" fill="${winColor}" opacity="${winOp}" />`;
+        const bldgWidths = [130, 160, 110, 150, 180, 120, 160, 140, 170, 120, 160, 150, 130, 170, 120, 140];
+        for (let b = -this.CYCLE_W; b < this.CYCLE_W * 2; b += this.CYCLE_W) {
+          let curX = b;
+          for (let i = 0; i < bldgWidths.length; i++) {
+            const w = bldgWidths[i];
+            const h = 290 + (i % 6) * 45;
+            const y = 585 - h;
+            farHTML += `
+              <g transform="translate(${curX}, ${y})">
+                <rect x="0" y="0" width="${w}" height="${h}" fill="#111827" stroke="#1f2937" stroke-width="1.5" />
+                <line x1="${w/2}" y1="0" x2="${w/2}" y2="-30" stroke="#475569" stroke-width="2" />
+                <circle cx="${w/2}" cy="-30" r="3" fill="#ef4444" opacity="0.9" />
+            `;
+            for (let wy = 30; wy < h - 20; wy += 28) {
+              for (let wx = 15; wx < w - 15; wx += 24) {
+                if ((i + wx + wy) % 3 !== 0) {
+                  const winColor = (wx + wy) % 2 === 0 ? '#fef08a' : '#38bdf8';
+                  const winOp = ((wx * wy) % 10 > 3) ? 0.75 : 0.2;
+                  farHTML += `<rect x="${wx}" y="${wy}" width="12" height="16" rx="2" fill="${winColor}" opacity="${winOp}" />`;
+                }
               }
             }
+            farHTML += `</g>`;
+            curX += w - 6;
           }
-          farHTML += `</g>`;
-          curX += w - 10;
         }
         farLayer.innerHTML = farHTML;
 
-        // 中景店铺街区建筑与招牌
+        // 2. 中景店铺街区建筑与招牌
         let midHTML = '';
-        let midX = 0;
-        const shopNames = ['CAFE ☕', 'PHOTO 📷', 'JAZZ 🎷', 'BAKERY 🥐', 'BOOKS 📖', 'BISTRO 🍷'];
-        for (let i = 0; i < 16; i++) {
-          const w = 180 + (i % 3) * 30;
-          const h = 220 + (i % 4) * 30;
-          const y = 585 - h;
-          const shopName = shopNames[i % shopNames.length];
-          const neonColor = ['#ec4899', '#38bdf8', '#a855f7', '#facc15'][i % 4];
-
-          midHTML += `
-            <g transform="translate(${midX}, ${y})">
-              <rect x="0" y="0" width="${w}" height="${h}" fill="#1e293b" stroke="#334155" stroke-width="2" />
-              <!-- 店铺遮阳篷 -->
-              <path d="M-5,${h-70} L${w+5},${h-70} L${w},${h-45} L-2,${h-45} Z" fill="${i % 2 === 0 ? '#be185d' : '#0369a1'}" />
-              <!-- 霓虹灯招牌 -->
-              <rect x="${w/2 - 50}" y="35" width="100" height="26" rx="6" fill="#090d16" stroke="${neonColor}" stroke-width="2" />
-              <text x="${w/2}" y="52" fill="${neonColor}" font-size="11" font-weight="bold" text-anchor="middle" font-family="sans-serif">${shopName}</text>
-              <!-- 落地橱窗 -->
-              <rect x="20" y="${h-40}" width="${w-40}" height="40" fill="#fef3c7" opacity="0.3" stroke="#f59e0b" stroke-width="1.5" />
-            </g>
-          `;
-          midX += w + 20;
+        const shopNames = ['CAFE ☕', 'PHOTO 📷', 'JAZZ 🎷', 'BAKERY 🥐', 'BOOKS 📖', 'BISTRO 🍷', 'GALLERY 🎨', 'RECORD 💿', 'CINEMA 🎬', 'BOUTIQUE 👔'];
+        for (let b = -this.CYCLE_W; b < this.CYCLE_W * 2; b += this.CYCLE_W) {
+          let midX = b;
+          for (let i = 0; i < 11; i++) {
+            const w = 190 + (i % 3) * 35;
+            const h = 230 + (i % 4) * 28;
+            const y = 585 - h;
+            const shopName = shopNames[i % shopNames.length];
+            const neonColor = ['#ec4899', '#38bdf8', '#a855f7', '#facc15', '#34d399'][i % 5];
+            midHTML += `
+              <g transform="translate(${midX}, ${y})">
+                <rect x="0" y="0" width="${w}" height="${h}" fill="#1e293b" stroke="#334155" stroke-width="2" />
+                <path d="M-5,${h-70} L${w+5},${h-70} L${w},${h-45} L-2,${h-45} Z" fill="${i % 2 === 0 ? '#be185d' : '#0369a1'}" />
+                <rect x="${w/2 - 52}" y="35" width="104" height="26" rx="6" fill="#090d16" stroke="${neonColor}" stroke-width="2" />
+                <text x="${w/2}" y="52" fill="${neonColor}" font-size="11" font-weight="bold" text-anchor="middle" font-family="sans-serif">${shopName}</text>
+                <rect x="18" y="${h-42}" width="${w-36}" height="42" fill="#fef3c7" opacity="0.3" stroke="#f59e0b" stroke-width="1.5" />
+              </g>
+            `;
+            midX += w + 20;
+          }
         }
         midLayer.innerHTML = midHTML;
 
-        // 柏油马路虚线与街灯光芒
+        // 3. 柏油马路动态黄色虚线与街灯光芒 (纯动态装饰层，绝不承载黑色底基)
         let stripesHTML = '';
         let lightsHTML = '';
-        for (let x = 0; x < 2880; x += 160) {
+        for (let x = -this.CYCLE_W; x < this.CYCLE_W * 2; x += 160) {
           stripesHTML += `<rect x="${x}" y="670" width="80" height="8" rx="3" fill="#facc15" opacity="0.9" />`;
-          // 现代街灯柱与暖光锥
           if (x % 320 === 0) {
             lightsHTML += `
               <g transform="translate(${x}, 380)">
-                <!-- 街灯杆 -->
                 <path d="M0,205 L0,30 Q0,-10 30,-10 L45,-10" fill="none" stroke="#64748b" stroke-width="6" stroke-linecap="round" />
                 <circle cx="45" cy="-8" r="7" fill="#fef08a" />
-                <!-- 投射在人行道和地面的柔和锥形灯光 -->
                 <polygon points="45,-5 -20,205 130,205" fill="#fef08a" opacity="0.16" />
               </g>
             `;
@@ -1718,9 +1713,9 @@
         lightsContainer.innerHTML = lightsHTML;
 
         this.layers.push(
-          { id: 'city-layer-far', scene: 'city', speedFactor: 0.15, x: 0, width: 2880 },
-          { id: 'city-layer-mid', scene: 'city', speedFactor: 0.42, x: 0, width: 2880 },
-          { id: 'city-layer-road', scene: 'city', speedFactor: 1.0, x: 0, width: 1440 }
+          { id: 'city-layer-far', scene: 'city', speedFactor: 0.15, x: 0, width: this.CYCLE_W },
+          { id: 'city-layer-mid', scene: 'city', speedFactor: 0.42, x: 0, width: this.CYCLE_W },
+          { id: 'city-layer-road', scene: 'city', speedFactor: 1.0, x: 0, width: this.CYCLE_W }
         );
       }
 
@@ -1733,7 +1728,7 @@
 
           // 计算本帧位移 (向左移动)
           layer.x -= currentSpeedPixels * layer.speedFactor * dt;
-          // 模运算实现无限无缝循环
+          // 模运算实现无限无缝循环 (到达一个周期 2400px 时平滑复位，由于两翼均有镜像延展，完全零破绽)
           if (layer.x <= -layer.width) {
             layer.x += layer.width;
           }
@@ -1742,11 +1737,10 @@
 
         // 旋转田野中的风车叶片
         if (State.scene === 'field') {
-          const b1 = document.getElementById('windmill-blades-1');
-          const b2 = document.getElementById('windmill-blades-2');
-          const rotSpeed = 45 * State.speedMultiplier;
-          if (b1) b1.setAttribute('transform', `translate(25, 0) rotate(${State.wheelAngle * 0.4})`);
-          if (b2) b2.setAttribute('transform', `translate(25, 0) rotate(${-State.wheelAngle * 0.3})`);
+          document.querySelectorAll('.windmill-blades-group').forEach((blades, idx) => {
+            const dir = (idx % 2 === 0 ? 1 : -1);
+            blades.setAttribute('transform', `translate(25, 0) rotate(${State.wheelAngle * 0.35 * dir})`);
+          });
         }
       }
 
