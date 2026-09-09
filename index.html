@@ -1056,6 +1056,9 @@
 
         // 链条滴答计时
         this.lastChainClickAngle = 0;
+
+        // 音频是否已被用户手势唤醒开声
+        this.isUnlocked = false;
       }
 
       init() {
@@ -1084,15 +1087,26 @@
         this.ambientGain.connect(this.masterGain);
 
         this.startAmbient();
-        this.startBgm();
+        if (State.isBgmOn) {
+          this.startBgm();
+        }
       }
 
       ensureContext() {
         if (!this.ctx) {
           this.init();
-        } else if (this.ctx.state === 'suspended') {
-          this.ctx.resume();
         }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume().then(() => {
+            if (!this.isPlayingBgm && State.isBgmOn) {
+              this.startBgm();
+            }
+          });
+        }
+        if (!this.isPlayingBgm && State.isBgmOn && this.ctx && this.ctx.state === 'running') {
+          this.startBgm();
+        }
+        this.isUnlocked = true;
       }
 
       // 经典双音复古黄铜自行车车铃 ("Ding-Ding!")
@@ -1431,13 +1445,28 @@
       }
 
       toggleBgm() {
-        this.ensureContext();
+        // 若受浏览器自动播放策略限制尚未开声，或当前没有播放：
+        // 首次点击代表用户意图“开声”，直接激活并维持开启！
+        if (!this.isUnlocked || !this.ctx || this.ctx.state !== 'running' || !this.isPlayingBgm) {
+          State.isBgmOn = true;
+          this.ensureContext();
+          if (!this.isPlayingBgm) this.startBgm();
+          return true;
+        }
+        // 已经在正常播放中，点击才是正常开/关切换
         State.isBgmOn = !State.isBgmOn;
         return State.isBgmOn;
       }
 
       toggleSfx() {
-        this.ensureContext();
+        if (!this.isUnlocked || !this.ctx || this.ctx.state !== 'running') {
+          State.isSfxOn = true;
+          this.ensureContext();
+          if (this.ambientGain) {
+            this.ambientGain.gain.setTargetAtTime(0.3, this.ctx.currentTime, 0.2);
+          }
+          return true;
+        }
         State.isSfxOn = !State.isSfxOn;
         if (this.ambientGain) {
           this.ambientGain.gain.setTargetAtTime(State.isSfxOn ? 0.3 : 0, this.ctx.currentTime, 0.2);
@@ -2032,16 +2061,20 @@
         const btnBgm = document.getElementById('btn-audio-bgm');
         const btnSfx = document.getElementById('btn-audio-sfx');
 
-        btnBgm.addEventListener('click', () => {
+        btnBgm.addEventListener('click', (e) => {
+          e.stopPropagation();
           const isOn = audio.toggleBgm();
           btnBgm.classList.toggle('active', isOn);
           document.getElementById('bgm-icon').textContent = isOn ? '🎵' : '🔇';
+          this.showBubble(isOn ? '🎵 音乐已开启～' : '🔇 音乐已静音');
         });
 
-        btnSfx.addEventListener('click', () => {
+        btnSfx.addEventListener('click', (e) => {
+          e.stopPropagation();
           const isOn = audio.toggleSfx();
           btnSfx.classList.toggle('active', isOn);
           document.getElementById('sfx-icon').textContent = isOn ? '🔊' : '🔈';
+          this.showBubble(isOn ? '🔊 音效已开启～' : '🔈 音效已静音');
         });
 
         // 6. 全屏切换
@@ -2081,8 +2114,28 @@
           }
         });
 
-        // 初次触碰屏幕或点击唤醒音频上下文
-        window.addEventListener('pointerdown', () => audio.ensureContext(), { once: true });
+        // 任何页面手势（点击、触屏、按键）均瞬间唤醒 Web Audio 并开声
+        const activateAudioContext = () => {
+          audio.ensureContext();
+          if (State.isBgmOn) {
+            btnBgm.classList.add('active');
+            document.getElementById('bgm-icon').textContent = '🎵';
+          }
+          if (State.isSfxOn) {
+            btnSfx.classList.add('active');
+            document.getElementById('sfx-icon').textContent = '🔊';
+          }
+        };
+        ['pointerdown', 'keydown', 'touchstart'].forEach(evt => {
+          window.addEventListener(evt, activateAudioContext, { once: true });
+        });
+
+        // 初次加载时气泡友好提示：点任意处即刻开声
+        setTimeout(() => {
+          if (!audio.isUnlocked) {
+            this.showBubble('点一下任意位置听音乐 🚴🎵');
+          }
+        }, 500);
       }
 
       setSpeed(speedVal) {
